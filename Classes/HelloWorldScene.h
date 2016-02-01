@@ -12,7 +12,6 @@ public:
     virtual bool init();
     
     void menuCloseCallback(cocos2d::Ref* pSender);
-//    void startGame(cocos2d::Ref* pSender);
 
     CREATE_FUNC(HelloWorld);
 

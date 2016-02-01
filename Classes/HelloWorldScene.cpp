@@ -75,9 +75,3 @@ HelloWorld::menuCloseCallback(Ref* pSender)
     exit(0);
 #endif
 }
-
-//void
-//HelloWorld::startGame(Ref* pSender)
-//{
-//    this->removeChild(this->startGameButton);
-//}

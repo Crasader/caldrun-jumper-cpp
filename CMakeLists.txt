@@ -127,14 +127,14 @@ set(GAME_SRC
   Classes/HelloWorldScene.cpp
   ${PLATFORM_SPECIFIC_SRC}
         Classes/GameScene.cpp
-        Classes/Timer.cpp Classes/Neko.cpp)
+        Classes/Timer.cpp Classes/Neko.cpp Classes/Item.cpp Classes/Highscore.cpp)
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/HelloWorldScene.h
   ${PLATFORM_SPECIFIC_HEADERS}
         Classes/GameScene.h
-        Classes/Timer.h Classes/Neko.h)
+        Classes/Timer.h Classes/Neko.h Classes/Item.h Classes/Highscore.h)
 
 if(GAME_HEADERS)
   if ( WIN32 )

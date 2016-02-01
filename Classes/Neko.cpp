@@ -54,6 +54,8 @@ Neko::init()
     this->initWithFile("neko/right1.png");
     this->Idle();
 
+    this->scheduleUpdate();
+
     return true;
 }
 
@@ -72,7 +74,7 @@ void
 Neko::MoveRight()
 {
     this->stopActionsByFlags(1);
-//    this->stopAllActions();
+
     auto moveNekoRight = MoveBy::create(1, Vec2(Neko::SPEED, 0));
     auto nekoAnimationRight = AnimationCache::getInstance()->getAnimation(Neko::ANIM_RIGHT_NAME);
     auto nekoAnimateRight = Animate::create(nekoAnimationRight);
@@ -90,22 +92,44 @@ void
 Neko::MoveLeft()
 {
     this->stopActionsByFlags(1);
-//    this->stopAllActions();
+
     auto moveNekoLeft = MoveBy::create(1, Vec2(-1 * Neko::SPEED, 0));
     auto nekoAnimationLeft = AnimationCache::getInstance()->getAnimation(Neko::ANIM_LEFT_NAME);
     auto nekoAnimateLeft = Animate::create(nekoAnimationLeft);
+
     auto actionAnimLeft = RepeatForever::create(nekoAnimateLeft);
     actionAnimLeft->setFlags(1);
+    this->runAction(actionAnimLeft);
+
     auto actionMoveLeft = RepeatForever::create(moveNekoLeft);
     actionMoveLeft->setFlags(1);
-    this->runAction(actionAnimLeft);
     this->runAction(actionMoveLeft);
 }
 
 void
 Neko::Jump()
 {
-    auto moveUp = MoveBy::create(1, Vec2(0, 450));
-    auto moveDown = MoveBy::create(1, Vec2(0, -450));
-    this->runAction(Sequence::create(moveUp, moveDown, nullptr));
+    if (!this->getActionByTag(2) || (this->getActionByTag(2) && this->getActionByTag(2)->isDone())) {
+        auto moveUp = MoveBy::create(1, Vec2(0, 450));
+        auto moveDown = MoveBy::create(1, Vec2(0, -450));
+        auto jumpSequence = Sequence::create(moveUp, moveDown, nullptr);
+        jumpSequence->setTag(2);
+
+        this->runAction(jumpSequence);
+    }
+}
+
+void
+Neko::update(float deltaTime)
+{
+    auto xPosition = this->getPositionX();
+    if (xPosition < 40 || xPosition > 760) {
+        this->Idle();
+
+        if (40 > xPosition) {
+            this->setPositionX(40);
+        } else {
+            this->setPositionX(760);
+        }
+    }
 }

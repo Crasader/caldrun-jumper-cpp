@@ -5,16 +5,18 @@
 class Neko : public cocos2d::Sprite
 {
 public:
-//    static Neko* create();
     ~Neko();
+
+    virtual bool init();
+    CREATE_FUNC(Neko);
 
     void Idle();
     void MoveRight();
     void MoveLeft();
     void Jump();
-    virtual bool init();
 
-    CREATE_FUNC(Neko);
+    void update(float) override;
+
 protected:
     Neko();
 

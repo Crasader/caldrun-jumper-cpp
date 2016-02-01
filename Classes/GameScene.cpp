@@ -1,14 +1,13 @@
 #include <audio/include/SimpleAudioEngine.h>
 #include "GameScene.h"
 #include "Neko.h"
+#include "Item.h"
+#include "Highscore.h"
 
 USING_NS_CC;
 
 Game::~Game()
 {
-    if (nullptr != this->neko) {
-        delete this->neko;
-    }
 }
 
 Scene*
@@ -20,14 +19,9 @@ Game::createScene()
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
     auto layer = Game::create();
-
     scene->addChild(layer);
-
-
     return scene;
 }
-
-
 
 bool
 Game::init() {
@@ -48,10 +42,8 @@ Game::init() {
     timeOutput->setPosition(50, 550);
     this->addChild(timeOutput);
 
-    auto pointsOutput = Label::createWithTTF("points: 0", "fonts/Marker Felt.ttf", 24);
-    pointsOutput->setAnchorPoint(Vec2(0, 0));
-    pointsOutput->setPosition(650, 550);
-    this->addChild(pointsOutput);
+    this->highscore = Highscore::create();
+    this->addChild(this->highscore);
 
 
     auto moveNekoLeft = MoveBy::create(2, Vec2(-20, 0));
@@ -91,9 +83,26 @@ Game::init() {
         }
     };
 
-    auto nekoThing = Neko::create();
-    this->addChild(nekoThing);
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, nekoThing);
+    this->item = Item::create();
+    this->item->showANewItem();
+    this->addChild(this->item);
+
+    this->neko = Neko::create();
+    this->addChild(this->neko);
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this->neko);
+
+    this->scheduleUpdate();
 
     return true;
+}
+
+void
+Game::update(float deltaTime) {
+    auto nekoRect = this->neko->getBoundingBox();
+    auto itemRect = this->item->getBoundingBox();
+
+    if (nekoRect.intersectsRect(itemRect)) {
+        this->highscore->AddScoreForOneItem();
+        this->item->showANewItem();
+    }
 }
