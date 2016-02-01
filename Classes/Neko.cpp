@@ -2,6 +2,19 @@
 
 USING_NS_CC;
 
+// ---------------------------------------------------------------------------------------------------------------------
+
+static const std::string ANIM_IDLE_NAME = "nekoAnimationIdle";
+static const std::string ANIM_RIGHT_NAME = "nekoAnimationRight";
+static const std::string ANIM_LEFT_NAME = "nekoAnimationLeft";
+
+static const float SPEED = 0.5f;
+static const float SPEED_DISTANCE = 300.0f;
+static const float JUMP_SPEED = 0.7f;
+static const float JUMP_DISTANCE = 450.0f;
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 Neko::Neko()
 {}
 
@@ -26,7 +39,7 @@ Neko::init()
         animFramesIdle.pushBack(frame);
     }
     auto nekoAnimationIdle = Animation::createWithSpriteFrames(animFramesIdle, 0.1f);
-    AnimationCache::getInstance()->addAnimation(nekoAnimationIdle, Neko::ANIM_IDLE_NAME);
+    AnimationCache::getInstance()->addAnimation(nekoAnimationIdle, ANIM_IDLE_NAME);
 
     // init right
     Vector<SpriteFrame*> animFramesRight(6);
@@ -38,7 +51,7 @@ Neko::init()
         animFramesRight.pushBack(frame);
     }
     auto nekoAnimationRight = Animation::createWithSpriteFrames(animFramesRight, 0.1f);
-    AnimationCache::getInstance()->addAnimation(nekoAnimationRight, Neko::ANIM_RIGHT_NAME);
+    AnimationCache::getInstance()->addAnimation(nekoAnimationRight, ANIM_RIGHT_NAME);
 
     // init left
     Vector<SpriteFrame*> animFramesLeft(6);
@@ -50,7 +63,7 @@ Neko::init()
         animFramesLeft.pushBack(frame);
     }
     auto nekoAnimationLeft = Animation::createWithSpriteFrames(animFramesLeft, 0.1f);
-    AnimationCache::getInstance()->addAnimation(nekoAnimationLeft, Neko::ANIM_LEFT_NAME);
+    AnimationCache::getInstance()->addAnimation(nekoAnimationLeft, ANIM_LEFT_NAME);
 
     this->initWithFile("neko/right1.png");
     this->Idle();
@@ -64,7 +77,7 @@ void
 Neko::Idle()
 {
     this->stopActionsByFlags(1);
-    auto nekoAnimationIdle = AnimationCache::getInstance()->getAnimation(Neko::ANIM_IDLE_NAME);
+    auto nekoAnimationIdle = AnimationCache::getInstance()->getAnimation(ANIM_IDLE_NAME);
     auto nekoAnimateIdle = Animate::create(nekoAnimationIdle);
     auto actionIdle = RepeatForever::create(nekoAnimateIdle);
     actionIdle->setFlags(1);
@@ -76,8 +89,8 @@ Neko::MoveRight()
 {
     this->stopActionsByFlags(1);
 
-    auto moveNekoRight = MoveBy::create(Neko::SPEED, Vec2(Neko::SPEED_DISTANCE, 0));
-    auto nekoAnimationRight = AnimationCache::getInstance()->getAnimation(Neko::ANIM_RIGHT_NAME);
+    auto moveNekoRight = MoveBy::create(SPEED, Vec2(SPEED_DISTANCE, 0));
+    auto nekoAnimationRight = AnimationCache::getInstance()->getAnimation(ANIM_RIGHT_NAME);
     auto nekoAnimateRight = Animate::create(nekoAnimationRight);
 
     auto actionAnimRight = RepeatForever::create(nekoAnimateRight);
@@ -94,8 +107,8 @@ Neko::MoveLeft()
 {
     this->stopActionsByFlags(1);
 
-    auto moveNekoLeft = MoveBy::create(Neko::SPEED, Vec2(-1 * Neko::SPEED_DISTANCE, 0));
-    auto nekoAnimationLeft = AnimationCache::getInstance()->getAnimation(Neko::ANIM_LEFT_NAME);
+    auto moveNekoLeft = MoveBy::create(SPEED, Vec2(-1 * SPEED_DISTANCE, 0));
+    auto nekoAnimationLeft = AnimationCache::getInstance()->getAnimation(ANIM_LEFT_NAME);
     auto nekoAnimateLeft = Animate::create(nekoAnimationLeft);
 
     auto actionAnimLeft = RepeatForever::create(nekoAnimateLeft);
@@ -111,8 +124,8 @@ void
 Neko::Jump()
 {
     if (!this->getActionByTag(2) || (this->getActionByTag(2) && this->getActionByTag(2)->isDone())) {
-        auto moveUp = MoveBy::create(Neko::JUMP_SPEED, Vec2(0, Neko::JUMP_DISTANCE));
-        auto moveDown = MoveBy::create(Neko::JUMP_SPEED, Vec2(0, -1 * Neko::JUMP_DISTANCE));
+        auto moveUp = MoveBy::create(JUMP_SPEED, Vec2(0, JUMP_DISTANCE));
+        auto moveDown = MoveBy::create(JUMP_SPEED, Vec2(0, -1 * JUMP_DISTANCE));
         auto jumpSequence = Sequence::create(moveUp, moveDown, nullptr);
         jumpSequence->setTag(2);
 
