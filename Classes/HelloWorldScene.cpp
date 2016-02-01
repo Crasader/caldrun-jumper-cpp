@@ -1,3 +1,4 @@
+#include <audio/include/SimpleAudioEngine.h>
 #include "HelloWorldScene.h"
 
 USING_NS_CC;
@@ -20,13 +21,18 @@ HelloWorld::init()
     {
         return false;
     }
-    
+
+    auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+    audio->preloadBackgroundMusic("sfx/An_Adventure_Awaits.mp3");
+    audio->playBackgroundMusic("sfx/An_Adventure_Awaits.mp3");
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+    auto backgroundSprite = Sprite::create("background.jpg");
+    backgroundSprite->setAnchorPoint(Vec2(0, 0));
+    backgroundSprite->setPosition(0, 0);
+    this->addChild(backgroundSprite, 0);
 
     auto closeItem = MenuItemImage::create(
         "CloseNormal.png",
@@ -45,21 +51,24 @@ HelloWorld::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
     
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
+    auto label = Label::createWithTTF("Start the game", "fonts/Marker Felt.ttf", 24);
+    label->setPosition(
+        Vec2(
+            visibleSize.width/2,
+            visibleSize.height/2 - label->getContentSize().height
+        )
+    );
     this->addChild(label, 1);
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+    auto timeOutput = Label::createWithTTF("time: 90", "fonts/Marker Felt.ttf", 24);
+    timeOutput->setAnchorPoint(Vec2(0, 0));
+    timeOutput->setPosition(50, 550);
+    this->addChild(timeOutput);
 
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
+    auto pointsOutput = Label::createWithTTF("points: 0", "fonts/Marker Felt.ttf", 24);
+    pointsOutput->setAnchorPoint(Vec2(0, 0));
+    pointsOutput->setPosition(650, 550);
+    this->addChild(pointsOutput);
     
     return true;
 }
