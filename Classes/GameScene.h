@@ -5,6 +5,7 @@
 class Neko;
 class Item;
 class Highscore;
+class GameTimer;
 
 class Game : public cocos2d::Layer
 {
@@ -19,11 +20,10 @@ public:
     void update(float) override;
 
 private:
-    cocos2d::Sprite* nekoSprite;
-
     Neko *neko;
     Item *item;
 
     Highscore *highscore;
+    GameTimer *timer;
 };
 

@@ -25,5 +25,8 @@ private:
     const std::string ANIM_RIGHT_NAME = "nekoAnimationRight";
     const std::string ANIM_LEFT_NAME = "nekoAnimationLeft";
 
-    const float SPEED = 400.0f;
+    const float SPEED = 0.5f;
+    const float SPEED_DISTANCE = 300.0f;
+    const float JUMP_SPEED = 0.7f;
+    const float JUMP_DISTANCE = 450.0f;
 };

@@ -3,6 +3,7 @@
 #include "Neko.h"
 #include "Item.h"
 #include "Highscore.h"
+#include "Timer.h"
 
 USING_NS_CC;
 
@@ -13,7 +14,6 @@ Game::~Game()
 Scene*
 Game::createScene()
 {
-//    auto scene = Scene::create();
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2(0,0));
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -37,19 +37,15 @@ Game::init() {
     backgroundSprite->setPosition(0, 0);
     this->addChild(backgroundSprite, 0);
 
-    auto timeOutput = Label::createWithTTF("time: 90", "fonts/Marker Felt.ttf", 24);
-    timeOutput->setAnchorPoint(Vec2(0, 0));
-    timeOutput->setPosition(50, 550);
-    this->addChild(timeOutput);
+//    auto timeOutput = Label::createWithTTF("time: 90", "fonts/Marker Felt.ttf", 24);
+//    timeOutput->setAnchorPoint(Vec2(0, 0));
+//    timeOutput->setPosition(50, 550);
+//    this->addChild(timeOutput);
+    this->timer = GameTimer::create();
+    this->addChild(this->timer);
 
     this->highscore = Highscore::create();
     this->addChild(this->highscore);
-
-
-    auto moveNekoLeft = MoveBy::create(2, Vec2(-20, 0));
-    moveNekoLeft->setTag(4);
-    auto moveNekoUp = MoveBy::create(2, Vec2(0, 20));
-    moveNekoUp->setTag(1);
 
     auto eventListener = EventListenerKeyboard::create();
     eventListener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event){

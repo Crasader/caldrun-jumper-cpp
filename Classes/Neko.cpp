@@ -75,7 +75,7 @@ Neko::MoveRight()
 {
     this->stopActionsByFlags(1);
 
-    auto moveNekoRight = MoveBy::create(1, Vec2(Neko::SPEED, 0));
+    auto moveNekoRight = MoveBy::create(Neko::SPEED, Vec2(Neko::SPEED_DISTANCE, 0));
     auto nekoAnimationRight = AnimationCache::getInstance()->getAnimation(Neko::ANIM_RIGHT_NAME);
     auto nekoAnimateRight = Animate::create(nekoAnimationRight);
 
@@ -93,7 +93,7 @@ Neko::MoveLeft()
 {
     this->stopActionsByFlags(1);
 
-    auto moveNekoLeft = MoveBy::create(1, Vec2(-1 * Neko::SPEED, 0));
+    auto moveNekoLeft = MoveBy::create(Neko::SPEED, Vec2(-1 * Neko::SPEED_DISTANCE, 0));
     auto nekoAnimationLeft = AnimationCache::getInstance()->getAnimation(Neko::ANIM_LEFT_NAME);
     auto nekoAnimateLeft = Animate::create(nekoAnimationLeft);
 
@@ -110,8 +110,8 @@ void
 Neko::Jump()
 {
     if (!this->getActionByTag(2) || (this->getActionByTag(2) && this->getActionByTag(2)->isDone())) {
-        auto moveUp = MoveBy::create(1, Vec2(0, 450));
-        auto moveDown = MoveBy::create(1, Vec2(0, -450));
+        auto moveUp = MoveBy::create(Neko::JUMP_SPEED, Vec2(0, Neko::JUMP_DISTANCE));
+        auto moveDown = MoveBy::create(Neko::JUMP_SPEED, Vec2(0, -1 * Neko::JUMP_DISTANCE));
         auto jumpSequence = Sequence::create(moveUp, moveDown, nullptr);
         jumpSequence->setTag(2);
 

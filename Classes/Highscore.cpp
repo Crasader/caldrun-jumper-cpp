@@ -12,12 +12,8 @@ Highscore::~Highscore()
 bool
 Highscore::init()
 {
-//    this->createWithTTF("points: 0", "fonts/Marker Felt.ttf", 24);
-
     this->setAnchorPoint(Vec2(0, 0));
     this->setPosition(650, 550);
-//    this->setLineHeight(24);
-//    this->setSystemFontSize(24);
     this->highscoreTtfConfig = new TTFConfig(Highscore::FONT_FILE.c_str(), 24, GlyphCollection::DYNAMIC);
     this->setTTFConfig(*this->highscoreTtfConfig);
 
