@@ -2,10 +2,7 @@
 
 #include "cocos2d.h"
 
-class Neko;
-class Item;
-class Highscore;
-class GameTimer;
+class GamePimpl;
 
 class Game : public cocos2d::Layer
 {
@@ -19,10 +16,10 @@ public:
 
     void update(float) override;
 
+protected:
+    Game();
+
 private:
-    Neko *neko;
-    Item *item;
-    Highscore *highscore;
-    GameTimer *timer;
+    GamePimpl* gamePimpl;
 };
 

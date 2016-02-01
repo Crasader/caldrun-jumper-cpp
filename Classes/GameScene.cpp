@@ -8,8 +8,25 @@
 
 USING_NS_CC;
 
+// ---------------------------------------------------------------------------------------------------------------------
+
+struct GamePimpl
+{
+    Neko *neko;
+    Item *item;
+    Highscore *highscore;
+    GameTimer *timer;
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+Game::Game() : gamePimpl(new GamePimpl())
+{
+}
+
 Game::~Game()
 {
+    delete this->gamePimpl;
 }
 
 Scene*
@@ -37,11 +54,11 @@ Game::init() {
     backgroundSprite->setPosition(0, 0);
     this->addChild(backgroundSprite, 0);
 
-    this->timer = GameTimer::create();
-    this->addChild(this->timer);
+    this->gamePimpl->timer = GameTimer::create();
+    this->addChild(this->gamePimpl->timer);
 
-    this->highscore = Highscore::create();
-    this->addChild(this->highscore);
+    this->gamePimpl->highscore = Highscore::create();
+    this->addChild(this->gamePimpl->highscore);
 
     auto eventListener = EventListenerKeyboard::create();
     eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event){
@@ -79,13 +96,13 @@ Game::init() {
         }
     };
 
-    this->item = Item::create();
-    this->item->showANewItem();
-    this->addChild(this->item);
+    this->gamePimpl->item = Item::create();
+    this->gamePimpl->item->showANewItem();
+    this->addChild(this->gamePimpl->item);
 
-    this->neko = Neko::create();
-    this->addChild(this->neko);
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this->neko);
+    this->gamePimpl->neko = Neko::create();
+    this->addChild(this->gamePimpl->neko);
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this->gamePimpl->neko);
 
     this->scheduleUpdate();
 
@@ -94,7 +111,7 @@ Game::init() {
 
 void
 Game::update(float deltaTime) {
-    if (0 == this->timer->GetCurrentTime()) {
+    if (0 == this->gamePimpl->timer->GetCurrentTime()) {
         if (this->getChildByName("nekoSprite")) {
             this->removeChildByName("nekoSprite");
 
@@ -120,15 +137,15 @@ Game::update(float deltaTime) {
 
     } else {
 
-        auto nekoRect = this->neko->getBoundingBox();
-        auto itemRect = this->item->getBoundingBox();
+        auto nekoRect = this->gamePimpl->neko->getBoundingBox();
+        auto itemRect = this->gamePimpl->item->getBoundingBox();
 
         if (nekoRect.intersectsRect(itemRect)) {
             auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
             audio->playEffect("sfx/sound4.wav");
 
-            this->highscore->AddScoreForOneItem();
-            this->item->showANewItem();
+            this->gamePimpl->highscore->AddScoreForOneItem();
+            this->gamePimpl->item->showANewItem();
         }
     }
 }
