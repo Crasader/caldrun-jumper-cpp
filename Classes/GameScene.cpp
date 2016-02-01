@@ -12,10 +12,10 @@ USING_NS_CC;
 
 struct GamePimpl
 {
-    Neko *neko;
-    Item *item;
-    Highscore *highscore;
-    GameTimer *timer;
+    Neko* neko;
+    Item* item;
+    Highscore* highscore;
+    GameTimer* timer;
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
