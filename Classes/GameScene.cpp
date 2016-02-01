@@ -64,7 +64,7 @@ Game::init() {
                 case EventKeyboard::KeyCode::KEY_W:
                 case EventKeyboard::KeyCode::KEY_SPACE:
                     audio = CocosDenshion::SimpleAudioEngine::getInstance();
-                    audio->playEffect("sfx/sound5.ogg");
+                    audio->playEffect("sfx/sound5.wav");
                     neko->Jump();
                     break;
 
@@ -125,7 +125,7 @@ Game::update(float deltaTime) {
 
         if (nekoRect.intersectsRect(itemRect)) {
             auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-            audio->playEffect("sfx/sound4.ogg");
+            audio->playEffect("sfx/sound4.wav");
 
             this->highscore->AddScoreForOneItem();
             this->item->showANewItem();

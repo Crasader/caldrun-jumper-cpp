@@ -24,8 +24,8 @@ HelloWorld::init()
     auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
     audio->preloadBackgroundMusic("sfx/An_Adventure_Awaits.mp3");
     audio->preloadBackgroundMusic("sfx/BEAD.mp3");
-    audio->preloadEffect("sfx/sound4.ogg");
-    audio->preloadEffect("sfx/sound5.ogg");
+    audio->preloadEffect("sfx/sound4.wav");
+    audio->preloadEffect("sfx/sound5.wav");
     audio->playBackgroundMusic("sfx/BEAD.mp3");
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
