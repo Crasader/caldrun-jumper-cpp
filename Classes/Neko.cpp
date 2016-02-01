@@ -14,6 +14,7 @@ Neko::init()
 {
     this->setAnchorPoint(Vec2(0, 0));
     this->setPosition(100, 100);
+    this->setName("nekoSprite");
 
     // init idle
     Vector<SpriteFrame*> animFramesIdle(4);

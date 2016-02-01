@@ -2,11 +2,25 @@
 
 USING_NS_CC;
 
-Highscore::Highscore()
+// ---------------------------------------------------------------------------------------------------------------------
+
+const static std::string HIGHSCORE_FONT_FILE = "fonts/Marker Felt.ttf";
+
+struct HighscorePimpl
+{
+    cocos2d::TTFConfig* highscoreTtfConfig;
+
+    int score;
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+Highscore::Highscore() : highscorePimpl(new HighscorePimpl())
 {}
 
 Highscore::~Highscore()
 {
+    delete this->highscorePimpl;
 }
 
 bool
@@ -14,10 +28,10 @@ Highscore::init()
 {
     this->setAnchorPoint(Vec2(0, 0));
     this->setPosition(650, 550);
-    this->highscoreTtfConfig = new TTFConfig(Highscore::FONT_FILE.c_str(), 24, GlyphCollection::DYNAMIC);
-    this->setTTFConfig(*this->highscoreTtfConfig);
+    this->highscorePimpl->highscoreTtfConfig = new TTFConfig(HIGHSCORE_FONT_FILE.c_str(), 24, GlyphCollection::DYNAMIC);
+    this->setTTFConfig(*this->highscorePimpl->highscoreTtfConfig);
 
-    this->score = 0;
+    this->highscorePimpl->score = 0;
 
     this->scheduleUpdate();
 
@@ -27,11 +41,11 @@ Highscore::init()
 void
 Highscore::AddScoreForOneItem()
 {
-    this->score += 10;
+    this->highscorePimpl->score += 10;
 }
 
 void
 Highscore::update(float deltaTime)
 {
-    this->setString("points: " + std::to_string(this->score));
+    this->setString("points: " + std::to_string(this->highscorePimpl->score));
 }

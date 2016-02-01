@@ -4,6 +4,7 @@
 #include "Item.h"
 #include "Highscore.h"
 #include "Timer.h"
+#include "HelloWorldScene.h"
 
 USING_NS_CC;
 
@@ -16,7 +17,6 @@ Game::createScene()
 {
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2(0,0));
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
     auto layer = Game::create();
     scene->addChild(layer);
@@ -37,10 +37,6 @@ Game::init() {
     backgroundSprite->setPosition(0, 0);
     this->addChild(backgroundSprite, 0);
 
-//    auto timeOutput = Label::createWithTTF("time: 90", "fonts/Marker Felt.ttf", 24);
-//    timeOutput->setAnchorPoint(Vec2(0, 0));
-//    timeOutput->setPosition(50, 550);
-//    this->addChild(timeOutput);
     this->timer = GameTimer::create();
     this->addChild(this->timer);
 
@@ -48,34 +44,38 @@ Game::init() {
     this->addChild(this->highscore);
 
     auto eventListener = EventListenerKeyboard::create();
-    eventListener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event){
-
+    eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event){
         auto neko = static_cast<Neko *>(event->getCurrentTarget());
 
-        switch(keyCode){
-            case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            case EventKeyboard::KeyCode::KEY_A:
-                neko->MoveLeft();
-                break;
+        if (nullptr != neko) {
 
-            case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            case EventKeyboard::KeyCode::KEY_D:
-                neko->MoveRight();
-                break;
+            switch (keyCode) {
+                case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+                case EventKeyboard::KeyCode::KEY_A:
+                    neko->MoveLeft();
+                    break;
 
-            case EventKeyboard::KeyCode::KEY_UP_ARROW:
-            case EventKeyboard::KeyCode::KEY_W:
-            case EventKeyboard::KeyCode::KEY_SPACE:
-                neko->Jump();
-                break;
+                case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+                case EventKeyboard::KeyCode::KEY_D:
+                    neko->MoveRight();
+                    break;
 
-            case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-            case EventKeyboard::KeyCode::KEY_S:
-                neko->Idle();
-                break;
+                case EventKeyboard::KeyCode::KEY_UP_ARROW:
+                case EventKeyboard::KeyCode::KEY_W:
+                case EventKeyboard::KeyCode::KEY_SPACE:
+                    audio = CocosDenshion::SimpleAudioEngine::getInstance();
+                    audio->playEffect("sfx/sound5.ogg");
+                    neko->Jump();
+                    break;
 
-            default:
-                break;
+                case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+                case EventKeyboard::KeyCode::KEY_S:
+                    neko->Idle();
+                    break;
+
+                default:
+                    break;
+            }
         }
     };
 
@@ -94,11 +94,41 @@ Game::init() {
 
 void
 Game::update(float deltaTime) {
-    auto nekoRect = this->neko->getBoundingBox();
-    auto itemRect = this->item->getBoundingBox();
+    if (0 == this->timer->GetCurrentTime()) {
+        if (this->getChildByName("nekoSprite")) {
+            this->removeChildByName("nekoSprite");
 
-    if (nekoRect.intersectsRect(itemRect)) {
-        this->highscore->AddScoreForOneItem();
-        this->item->showANewItem();
+            auto goBackToStart = Label::createWithTTF("back to start", "fonts/Marker Felt.ttf", 24);
+            goBackToStart->setPosition(
+                    Vec2(
+                            400,
+                            300 - goBackToStart->getContentSize().height
+                    )
+            );
+            auto touchListener = EventListenerTouchOneByOne::create();
+            touchListener->onTouchBegan = [](Touch* touch, Event* event) -> bool {
+                auto scene = HelloWorld::createScene();
+                Director::getInstance()->pushScene(scene);
+                return true;
+            };
+            Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(
+                    touchListener,
+                    goBackToStart
+            );
+            this->addChild(goBackToStart, 1);
+        }
+
+    } else {
+
+        auto nekoRect = this->neko->getBoundingBox();
+        auto itemRect = this->item->getBoundingBox();
+
+        if (nekoRect.intersectsRect(itemRect)) {
+            auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+            audio->playEffect("sfx/sound4.ogg");
+
+            this->highscore->AddScoreForOneItem();
+            this->item->showANewItem();
+        }
     }
 }

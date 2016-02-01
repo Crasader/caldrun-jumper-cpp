@@ -22,7 +22,6 @@ public:
 private:
     Neko *neko;
     Item *item;
-
     Highscore *highscore;
     GameTimer *timer;
 };

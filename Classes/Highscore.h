@@ -1,6 +1,8 @@
 #pragma once
 #include "cocos2d.h"
 
+struct HighscorePimpl;
+
 class Highscore : public cocos2d::Label
 {
 public:
@@ -17,8 +19,5 @@ protected:
     Highscore();
 
 private:
-    const std::string FONT_FILE = "fonts/Marker Felt.ttf";
-    cocos2d::TTFConfig* highscoreTtfConfig;
-
-    int score;
+    HighscorePimpl* highscorePimpl;
 };

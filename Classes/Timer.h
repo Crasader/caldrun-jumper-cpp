@@ -11,14 +11,13 @@ public:
     virtual bool init();
     CREATE_FUNC(GameTimer);
 
+    int GetCurrentTime() const;
+
     void update(float) override;
 
 protected:
     GameTimer();
 
 private:
-    const std::string FONT_FILE = "fonts/Marker Felt.ttf";
-    cocos2d::TTFConfig* timerTtfConfig;
-
     TimerPimpl* timerPimpl;
 };
