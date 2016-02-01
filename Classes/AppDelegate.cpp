@@ -3,11 +3,6 @@
 
 USING_NS_CC;
 
-//static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
-//static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-//static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-//static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
-
 static cocos2d::Size DISPLAY_SIZE = cocos2d::Size(800, 600);
 
 AppDelegate::AppDelegate() {
@@ -46,6 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #else
         glview = GLViewImpl::create("CaldrunJumper2");
 #endif
+        glview->setFrameSize(800, 600);
         director->setOpenGLView(glview);
     }
 
@@ -57,22 +53,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Set the design resolution
     glview->setDesignResolutionSize(DISPLAY_SIZE.width, DISPLAY_SIZE.height, ResolutionPolicy::NO_BORDER);
-    Size frameSize = glview->getFrameSize();
-    // if the frame's height is larger than the height of medium size.
-    /*if (frameSize.height > mediumResolutionSize.height)
-    {        
-        director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
-    }
-    // if the frame's height is larger than the height of small size.
-    else if (frameSize.height > smallResolutionSize.height)
-    {        
-        director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
-    }
-    // if the frame's height is smaller than the height of medium size.
-    else
-    {        
-        director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
-    }*/
 
     register_all_packages();
 
