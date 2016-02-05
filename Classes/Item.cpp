@@ -7,7 +7,7 @@ USING_NS_CC;
 static const int DIFFERENT_ITEM_SIZE = 37;
 static const float ITEM_MIN_DISTANCE = 70;
 
-struct ItemPimpl
+struct Item::ItemPimpl
 {
     float lastItemPosition;
 };

@@ -1,8 +1,6 @@
 #pragma once
 #include "cocos2d.h"
 
-struct HighscorePimpl;
-
 class Highscore : public cocos2d::Label
 {
 public:
@@ -19,5 +17,6 @@ protected:
     Highscore();
 
 private:
+    struct HighscorePimpl;
     HighscorePimpl* highscorePimpl;
 };

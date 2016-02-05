@@ -2,8 +2,6 @@
 
 #include "cocos2d.h"
 
-struct ItemPimpl;
-
 class Item : public cocos2d::Sprite
 {
 public:
@@ -18,5 +16,6 @@ protected:
     Item();
 
 private:
+    struct ItemPimpl;
     ItemPimpl* itemPimpl;
 };

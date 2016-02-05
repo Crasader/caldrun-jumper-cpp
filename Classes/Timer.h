@@ -1,8 +1,6 @@
 #pragma once
 #include "cocos2d.h"
 
-struct TimerPimpl;
-
 class GameTimer : public cocos2d::Label
 {
 public:
@@ -19,5 +17,6 @@ protected:
     GameTimer();
 
 private:
+    struct TimerPimpl;
     TimerPimpl* timerPimpl;
 };
