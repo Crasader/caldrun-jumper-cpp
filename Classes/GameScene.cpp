@@ -10,7 +10,7 @@ USING_NS_CC;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-struct GamePimpl
+struct Game::GamePimpl
 {
     Neko* neko;
     Item* item;
@@ -69,12 +69,12 @@ Game::init() {
             switch (keyCode) {
                 case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
                 case EventKeyboard::KeyCode::KEY_A:
-                    neko->MoveLeft();
+                    neko->moveLeft();
                     break;
 
                 case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
                 case EventKeyboard::KeyCode::KEY_D:
-                    neko->MoveRight();
+                    neko->moveRight();
                     break;
 
                 case EventKeyboard::KeyCode::KEY_UP_ARROW:
@@ -82,12 +82,12 @@ Game::init() {
                 case EventKeyboard::KeyCode::KEY_SPACE:
                     audio = CocosDenshion::SimpleAudioEngine::getInstance();
                     audio->playEffect("sfx/sound5.wav");
-                    neko->Jump();
+                    neko->jump();
                     break;
 
                 case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
                 case EventKeyboard::KeyCode::KEY_S:
-                    neko->Idle();
+                    neko->idle();
                     break;
 
                 default:
@@ -111,7 +111,7 @@ Game::init() {
 
 void
 Game::update(float deltaTime) {
-    if (0 == this->gamePimpl->timer->GetCurrentTime()) {
+    if (0 == this->gamePimpl->timer->getCurrentTime()) {
         if (this->getChildByName("nekoSprite")) {
             this->removeChildByName("nekoSprite");
 
@@ -144,7 +144,7 @@ Game::update(float deltaTime) {
             auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
             audio->playEffect("sfx/sound4.wav");
 
-            this->gamePimpl->highscore->AddScoreForOneItem();
+            this->gamePimpl->highscore->addScoreForOneItem();
             this->gamePimpl->item->showANewItem();
         }
     }

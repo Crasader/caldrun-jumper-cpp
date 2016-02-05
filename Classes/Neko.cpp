@@ -66,7 +66,7 @@ Neko::init()
     AnimationCache::getInstance()->addAnimation(nekoAnimationLeft, ANIM_LEFT_NAME);
 
     this->initWithFile("neko/right1.png");
-    this->Idle();
+    this->idle();
 
     this->scheduleUpdate();
 
@@ -74,7 +74,7 @@ Neko::init()
 }
 
 void
-Neko::Idle()
+Neko::idle()
 {
     this->stopActionsByFlags(1);
     auto nekoAnimationIdle = AnimationCache::getInstance()->getAnimation(ANIM_IDLE_NAME);
@@ -85,7 +85,7 @@ Neko::Idle()
 }
 
 void
-Neko::MoveRight()
+Neko::moveRight()
 {
     this->stopActionsByFlags(1);
 
@@ -103,7 +103,7 @@ Neko::MoveRight()
 }
 
 void
-Neko::MoveLeft()
+Neko::moveLeft()
 {
     this->stopActionsByFlags(1);
 
@@ -121,7 +121,7 @@ Neko::MoveLeft()
 }
 
 void
-Neko::Jump()
+Neko::jump()
 {
     if (!this->getActionByTag(2) || (this->getActionByTag(2) && this->getActionByTag(2)->isDone())) {
         auto moveUp = MoveBy::create(JUMP_SPEED, Vec2(0, JUMP_DISTANCE));
@@ -138,7 +138,7 @@ Neko::update(float deltaTime)
 {
     auto xPosition = this->getPositionX();
     if (xPosition < 40 || xPosition > 760) {
-        this->Idle();
+        this->idle();
 
         if (40 > xPosition) {
             this->setPositionX(40);

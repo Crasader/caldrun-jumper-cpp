@@ -6,7 +6,7 @@ USING_NS_CC;
 
 const static std::string TIMER_FONT_FILE = "fonts/Marker Felt.ttf";
 
-struct TimerPimpl
+struct GameTimer::TimerPimpl
 {
     TimerPimpl() : currentTime(90), timer(0)
     {}
@@ -42,7 +42,7 @@ GameTimer::init()
 }
 
 int
-GameTimer::GetCurrentTime() const
+GameTimer::getCurrentTime() const
 {
     return this->timerPimpl->currentTime;
 }

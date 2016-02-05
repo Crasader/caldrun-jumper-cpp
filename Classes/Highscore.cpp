@@ -6,7 +6,7 @@ USING_NS_CC;
 
 const static std::string HIGHSCORE_FONT_FILE = "fonts/Marker Felt.ttf";
 
-struct HighscorePimpl
+struct Highscore::HighscorePimpl
 {
     cocos2d::TTFConfig* highscoreTtfConfig;
 
@@ -39,7 +39,7 @@ Highscore::init()
 }
 
 void
-Highscore::AddScoreForOneItem()
+Highscore::addScoreForOneItem()
 {
     this->highscorePimpl->score += 10;
 }

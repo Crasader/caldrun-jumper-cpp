@@ -2,8 +2,6 @@
 
 #include "cocos2d.h"
 
-class GamePimpl;
-
 class Game : public cocos2d::Layer
 {
 public:
@@ -20,6 +18,7 @@ protected:
     Game();
 
 private:
+    class GamePimpl;
     GamePimpl* gamePimpl;
 };
 

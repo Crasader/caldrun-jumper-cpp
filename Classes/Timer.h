@@ -1,8 +1,6 @@
 #pragma once
 #include "cocos2d.h"
 
-struct TimerPimpl;
-
 class GameTimer : public cocos2d::Label
 {
 public:
@@ -11,7 +9,7 @@ public:
     virtual bool init();
     CREATE_FUNC(GameTimer);
 
-    int GetCurrentTime() const;
+    int getCurrentTime() const;
 
     void update(float) override;
 
@@ -19,5 +17,6 @@ protected:
     GameTimer();
 
 private:
+    struct TimerPimpl;
     TimerPimpl* timerPimpl;
 };
