@@ -9,7 +9,7 @@ public:
     virtual bool init();
     CREATE_FUNC(Highscore);
 
-    void AddScoreForOneItem();
+    void addScoreForOneItem();
 
     void update(float) override;
 

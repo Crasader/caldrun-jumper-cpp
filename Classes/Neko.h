@@ -10,10 +10,10 @@ public:
     virtual bool init();
     CREATE_FUNC(Neko);
 
-    void Idle();
-    void MoveRight();
-    void MoveLeft();
-    void Jump();
+    void idle();
+    void moveRight();
+    void moveLeft();
+    void jump();
 
     void update(float) override;
 

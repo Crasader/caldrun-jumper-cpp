@@ -42,7 +42,7 @@ GameTimer::init()
 }
 
 int
-GameTimer::GetCurrentTime() const
+GameTimer::getCurrentTime() const
 {
     return this->timerPimpl->currentTime;
 }

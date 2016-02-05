@@ -9,7 +9,7 @@ public:
     virtual bool init();
     CREATE_FUNC(GameTimer);
 
-    int GetCurrentTime() const;
+    int getCurrentTime() const;
 
     void update(float) override;
 

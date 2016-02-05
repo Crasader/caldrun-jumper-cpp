@@ -39,7 +39,7 @@ Highscore::init()
 }
 
 void
-Highscore::AddScoreForOneItem()
+Highscore::addScoreForOneItem()
 {
     this->highscorePimpl->score += 10;
 }
