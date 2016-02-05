@@ -6,7 +6,7 @@ But this time without a possibility to enter your name for a highscore (yet).
 
 ## tech
 
-It uses Cocos2dx instad of Phaser this time. So everything is now about C++.
+It uses Cocos2dx instead of Phaser this time. So everything is now about C++.
 
 ## controls
 
